@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,8 +11,15 @@ class App extends React.Component {
     }
   }
 
-  handlePet = (e) => {
+  handlePet = async (e) => {
     e.preventDefault();
+
+      // add try atch
+      let url = `${process.env.REACT_APP_SERVER}/pet?species=${this.state.species}`;
+      let petData = await axios.get(url);
+      this.setState({
+        petData: petData.data
+      });
 
   }
 
@@ -22,6 +30,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.petData);
     return (
       <>
         <h1>Find Your Pet</h1>
